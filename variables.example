@@ -1,0 +1,355 @@
+variable "access_key" {
+     description = "AWS access key."
+     default = "redacted"
+}
+
+variable "environment" {
+ description = "Production/Staging/Dev/UAT"
+ default = "development"
+}
+
+variable "prefix" {
+ description = "per environment prefix"
+ default = "development"
+}
+
+variable "secret_key" {
+    description = "AWS secret key."
+    default = "redacted"
+}
+
+variable "the_internet" {
+  description = "The Entire Internet"
+  default = "0.0.0.0/0"
+}
+
+variable "devops_vpc_cidr" {
+  description = "The VPC CIDR"
+  default = "192.168.0.0/16" 
+}
+
+variable "public_subnet1" {
+ description = "CI/CD network"
+ default = "192.168.101.0/24"
+}
+variable "public_subnet2" {
+ description = "Service Access Network (LBaaS)"
+ default = "192.168.102.0/24"
+}
+variable "public_subnet3" {
+ description = "Repository Network"
+ default = "192.168.100.0/24"
+}    
+variable "private_subnet5" {
+ description = "Management Network"
+ default = "192.168.104.0/24"
+}
+
+variable "private_subnet1" {
+ description = "PaaS Network"
+ default = "192.168.1.0/24"
+}
+variable "private_subnet2" {
+ description = "Backup & Data Transfer Network"
+ default = "192.168.2.0/24"
+}
+variable "private_subnet3" {
+ description = "DB as a Service Network (RDS or other)"
+ default = "192.168.3.0/24"
+}
+variable "private_subnet4" {
+ description = "Big Data Service Network"
+ default = "192.168.4.0/24"
+}
+
+variable "private_subnet6" {
+ description = "Network"
+ default = "192.168.6.0/24"
+}
+
+variable "private_subnet7" {
+ description = "Network"
+ default = "192.168.7.0/24"
+}
+
+variable "region" {
+    description = "default AWS region."
+    default = "eu-west-1"
+}
+
+variable "ami" {
+  type    = "map"
+  default = {
+    eu-central-1 = "ami-5055cd3f"
+    eu-west-1    = "ami-1b791862"
+    us-west-2    = "ami-32e7464a"
+    us-east-1    = "ami-66506c1c"
+  }
+  description = "AMI IDs for Ubuntu 16.04 in various regions"
+}
+
+variable "vpn_ami" {
+  type    = "map"
+  default = {
+    eu-central-1 = "ami-ebdc8992"
+    eu-west-1    = "ami-ebdc8992"
+    us-west-2    = "ami-ebdc8992"
+    us-east-1    = "ami-ebdc8992"
+  }
+  description = "AMI IDs for Ubuntu 16.04 in various regions"
+}
+
+/*cicd_master for Jenkins cluster*/
+variable "cicd_master_instance_type" {
+  description = "Jenkins CI cluster master"
+  default     = "t2.micro"
+}
+
+variable "vpn_instance_type" {
+ description = "VPN instance type"
+ default = "t2.small"
+}
+
+variable "cicd_master_instance_ips" {
+     description = "IP to use for our cicd_master instance"
+     default = ["192.168.101.5"]
+}
+
+/*cicd_slave for Jenkins cluster*/
+variable "cicd_slave_instance_type" {
+  description  = "Jenkins CI cluster slave"
+  default = "t2.micro"
+}
+
+variable "cicd_slave_instance_ips" {
+     description = "IP to use for our cicd_slave instance"
+     default = ["192.168.101.6"]
+}
+
+/*paas_slave - PaaS cluster master (OpenShift)*/
+variable "paas_master_instance_type" {
+  default     = "t2.micro"
+  description = " PaaS cluster master (OpenShift"
+}
+variable "paas_master_instance_ips" {
+     description = "IP to use for our paas_master"
+     default = ["192.168.1.5"]
+}
+
+/*paas_slave - PaaS cluster slave (OpenShift)*/
+variable "paas_slave_instance_type" {
+  default     = "t2.micro"
+  description = " PaaS cluster slave (OpenShift)"
+}
+variable "paas_slave_instance_ips" {
+     description = "IP to use for our paas_slave"
+     default = ["192.168.1.6"]
+}
+
+/*repository - code, artifact and package repository server (gogs,aptly,pypi,etc ...)*/
+variable "repository_instance_type" {
+  default     = "t2.micro"
+  description = " code, artifact and package repository server (gogs,aptly,pypi,etc ..."
+}
+variable "repository_instance_ips" {
+     description = "IP to use for our repository server(s)"
+     default = ["192.168.101.21"]
+}
+
+/*backup_master - backup service master (borg)*/
+variable "backup_master_instance_type" {
+  default     = "t2.micro"
+  description = " backup service master (borg"
+}
+variable "backup_master_instance_ips" {
+     description = "IP to use for our backup_master"
+     default = ["192.168.2.5"]
+}
+
+/*backup_slave - backup service slave/worker node (borg)*/
+variable "backup_slave_instance_type" {
+  default     = "t2.micro"
+  description = " backup service slaveworker node (borg"
+}
+variable "backup_slave_instance_ips" {
+     description = "IP to use for our backup_slave"
+     default = ["192.168.2.6"]
+}
+
+/*Consolidated monitoring system (graphing+metric aggregation+collection*/
+variable "monitoring_system_instance_type" {
+  default     = "t2.micro"
+  description = "monitoring server (graphing + metric collection + unsee + alertmanager)"
+}
+variable "monitoring_system_instance_ips" {
+     description = "IP to use for our monitoring_system"
+     default = ["192.168.104.6"]
+}
+
+/*Consolidated Logging system (Log Aggregation,Indexing,Dashboarding*/
+variable "logging_system_instance_type" {
+  default     = "t2.micro"
+  description = "Consolidated Logging system (Logg Aggregation,Indexing,Dashboarding)"
+}
+variable "logging_system_instance_ips" {
+     description = "IP to use for our logging_system"
+     default = ["192.168.104.7"]
+}
+
+/*metrics_store - metrics collection store (prometheus)*/
+variable "metrics_store_instance_type" {
+  default     = "t2.micro"
+  description = " metrics collection store (prometheus"
+}
+variable "metrics_store_instance_ips" {
+     description = "IP to use for our metrics_store"
+     default = ["192.168.104.6"]
+}
+
+/*grapher - Graphing and Charting system (Grafana)*/
+variable "grapher_instance_type" {
+  default     = "t2.micro"
+  description = " Graphing and Charting system (Grafana"
+}
+variable "grapher_instance_ips" {
+     description = "IP to use for our grapher"
+     default = ["192.168.104.7"]
+}
+
+/*indexer - Log and data index cluster master (ElasticSearch)*/
+variable "indexer_instance_type" {
+  default     = "t2.micro"
+  description = " Log and data index cluster master (ElasticSearch"
+}
+variable "indexer_instance_ips" {
+     description = "IP to use for our indexer"
+     default = ["192.168.104.8"]
+}
+
+/*metrics_agent - Metrics collection node (Prometheus Exporter)*/
+variable "metrics_agent_instance_type" {
+  default     = "t2.micro"
+  description = " Metrics collection node (Prometheus Exporter"
+}
+variable "metrics_agent_instance_ips" {
+     description = "IP to use for our metrics_agent"
+     default = ["192.168.104.9"]
+}
+
+/*log_search - Log Search UI (Kibana)*/ 
+variable "log_search_instance_type" {
+  default     = "t2.micro"
+  description = " Log Search UI (Kibana)"
+}
+variable "log_search_instance_ips" {
+     description = "IP to use for our log_search"
+     default = ["192.168.104.10"]
+}
+
+/*manager - Platform Management System (Custom)*/
+variable "manager_instance_type" {
+  default     = "t2.micro"
+  description = " Platform Management System (Custom"
+}
+variable "manager_instance_ips" {
+     description = "IP to use for our manager"
+     default = ["192.168.100.11"]
+}
+
+/*dbaas_manager - DBaaS controller (Cumulogic ?)*/
+variable "dbaas_manager_instance_type" {
+  default     = "t2.micro"
+  description = " DBaaS controller (Cumulogic ?"
+}
+variable "dbaas_manager_instance_ips" {
+     description = "IP to use for our dbaas_manager"
+     default = ["192.168.3.5"]
+}
+
+/*dbaas_worker - DB hosting worker (Cumulogic ?)*/
+variable "dbaas_worker_instance_type" {
+  default     = "t2.micro"
+  description = " DB hosting worker (Cumulogic ?"
+}
+variable "dbaas_worker_instance_ips" {
+     description = "IP to use for our dbaas_worker (.3 - .250)"
+     default = ["192.168.3.6"]
+}
+
+/*mesos_master - BDaaS cluster master (mesos)*/
+variable "mesos_master_instance_type" {
+  default     = "t2.micro"
+  description = " BDaaS cluster master (mesos)"
+}
+variable "mesos_master_instance_ips" {
+     description = "IP to use for our mesos_master"
+     default = ["192.168.4.5","192.168.4.8"]
+}
+
+/*mesos_slave - BDaaS cluster worker/slave (mesos)*/
+variable "mesos_slave_instance_type" {
+  default     = "t2.micro"
+  description = " BDaaS cluster workerslave (mesos"
+}
+
+variable "mesos_slave_instance_ips" {
+     description = "IP to use for our mesos_slave .3 - .250"
+     default = ["192.168.4.6","192.168.4.7"]
+}
+
+variable "key_name" {
+    description = "The AWS SSH key pair to use for EC2 instance resources."
+    default="osadmin"
+}
+
+variable "internal_dns_zone" {
+ description = "per deployment internal DNS zone"
+ default = "argo.net"
+}
+
+variable "root_zone_name" {
+ description = "The root zone hosting this subdomain"
+ default = "engeneon.com"
+}
+
+variable "root_zone_id" {
+ description = "AWS ID of root zone hosting this subdomain"
+ default = "Z3DW1S7EOFNSWA"
+}
+
+/*Management VPN Configuration Parameters*/
+
+variable "vpn_user" {
+ description = "VPN Standard User Account"
+ default = "openvpnas"
+}
+
+variable "vpn_admin_user" {
+ description = "VPN Adminisrative User"
+ default = "openvpnas"
+}
+
+variable "vpn_admin_pw" {
+ description = "VPN Admin Password"
+ default = "SN22SunBurn@#1"
+}
+
+variable "public_domain_prefix" {
+ description = "Public Domain for accessing service endpoints"
+ default = "argo"
+}
+
+variable vpn_cidr {
+ description = "CIDR range to be used for the vpn tunnel connection itself"
+ default = "10.8.0.0/24"
+}
+
+variable "private_key" {
+  type = "string"
+  default = <<EOF
+-----BEGIN RSA PRIVATE KEY-----
+<redacted>
+-----END RSA PRIVATE KEY-----
+EOF
+}
+
