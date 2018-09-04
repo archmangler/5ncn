@@ -23,7 +23,7 @@ variable "the_internet" {
   default = "0.0.0.0/0"
 }
 
-variable "devops_vpc_cidr" {
+variable "5ncn_vpc_cidr" {
   description = "The VPC CIDR"
   default = "192.168.0.0/16" 
 }
@@ -32,37 +32,8 @@ variable "public_subnet1" {
  description = "CI/CD network"
  default = "192.168.101.0/24"
 }
-variable "public_subnet2" {
- description = "Service Access Network (LBaaS)"
- default = "192.168.102.0/24"
-}
-variable "public_subnet3" {
- description = "Repository Network"
- default = "192.168.100.0/24"
-}    
-variable "private_subnet5" {
- description = "Management Network"
- default = "192.168.104.0/24"
-}
 
 variable "private_subnet1" {
- description = "PaaS Network"
- default = "192.168.1.0/24"
-}
-variable "private_subnet2" {
- description = "Backup & Data Transfer Network"
- default = "192.168.2.0/24"
-}
-variable "private_subnet3" {
- description = "DB as a Service Network (RDS or other)"
- default = "192.168.3.0/24"
-}
-variable "private_subnet4" {
- description = "Big Data Service Network"
- default = "192.168.4.0/24"
-}
-
-variable "private_subnet6" {
  description = "Network"
  default = "192.168.6.0/24"
 }
@@ -99,9 +70,9 @@ variable "vpn_ami" {
   description = "AMI IDs for Ubuntu 16.04 in various regions"
 }
 
-/*cicd_master for Jenkins cluster*/
-variable "cicd_master_instance_type" {
-  description = "Jenkins CI cluster master"
+/*cluster_master for cluster*/
+variable "cluster_master_instance_type" {
+  description = "cluster master"
   default     = "t2.micro"
 }
 
@@ -110,20 +81,20 @@ variable "vpn_instance_type" {
  default = "t2.small"
 }
 
-variable "cicd_master_instance_ips" {
+variable "cluster_master_instance_ips" {
      description = "IP to use for our cicd_master instance"
      default = ["192.168.101.5"]
 }
 
-/*cicd_slave for Jenkins cluster*/
-variable "cicd_slave_instance_type" {
-  description  = "Jenkins CI cluster slave"
+/*cluster_slave for Jenkins cluster*/
+variable "cluster_slave_instance_type" {
+  description  = "cluster slave"
   default = "t2.micro"
 }
 
-variable "cicd_slave_instance_ips" {
-     description = "IP to use for our cicd_slave instance"
-     default = ["192.168.101.6"]
+variable "cluster_slave_instance_ips" {
+     description = "IP to use for our cluster_slave instance"
+     default = ["192.168.101.6","192.168.101.7","192.168.101.8","192.168.101.9","192.168.101.10"]
 }
 
 /*paas_slave - PaaS cluster master (OpenShift)*/
@@ -348,7 +319,7 @@ variable "private_key" {
   type = "string"
   default = <<EOF
 -----BEGIN RSA PRIVATE KEY-----
-<redacted>
+redacted
 -----END RSA PRIVATE KEY-----
 EOF
 }
