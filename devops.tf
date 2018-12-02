@@ -54,6 +54,7 @@ resource "aws_security_group" "cluster_inbound_sg" {
 }
 
 /*Cluster Master/Controller Node*/
+/*
 resource "aws_instance" "cluster_master" {
   ami                         = "${lookup(var.ami, var.region)}"
   instance_type               = "${var.cluster_master_instance_type}"
@@ -69,6 +70,7 @@ resource "aws_instance" "cluster_master" {
   }
   count = "${length(var.cluster_master_instance_ips)}"
 }
+*/
 
 /*Cluster Slave/Worker Node*/
 resource "aws_instance" "cluster_slave" {
