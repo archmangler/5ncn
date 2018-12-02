@@ -6,7 +6,8 @@ provider "aws" {
 }
 
 module "vpc" {
-  source    = "../modules/vpc"
+  #source    = "../modules/vpc"
+  source    = "git@github.com:archmangler/tvpc.git"
   stack_name          = "devops"
   environment  ="development"
   vpc_cidr = "${var.5ncn_vpc_cidr}"
